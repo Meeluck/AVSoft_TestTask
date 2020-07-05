@@ -1,0 +1,47 @@
+﻿
+@page "{handler?}"
+@model AVSoft_TestTask.Pages.IndexModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    Layout = null;
+}
+
+
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <h3>Вывод таблицы 1</h3>
+    <table border="1">
+        <tr>
+            <th>Id</th>
+            <th>Key</th>
+            <th>Value</th>
+        </tr>
+
+        @foreach (AVSoft_TestTask.Models.Counter item in Model.Counters)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Key</td>
+                <td>@item.Value</td>
+            </tr>
+        }
+    </table>
+    <br />
+    <form method="post" asp-page="/Index">
+        <input type="submit" value="Добавить новое значение" />
+    </form>
+    <form method="post" asp-page="/Index">
+        <input type="submit" asp-page-handler="RazorView" value="Вывод спец запроса Razor View" />
+    </form>
+    <form action="~/ajax.html">
+        <input type="submit"  value="Вывод спец запроса Ajax" />
+    </form>
+
+</body>
+</html>

@@ -1,0 +1,47 @@
+﻿@page
+@model AVSoft_TestTask.Pages.AddCounterModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>AddCounter</title>
+</head>
+<body>
+    <h3>Добавление новой записи в таблицу 1</h3>
+    <p>@ViewData["Message"]</p>
+    <form method="post" asp-page="/AddCounter">
+        <table>
+            <tr>
+                <td>
+                    <label>Key</label>
+                </td>
+                <td>
+                    <input type="number" name="key" required />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Value</label>
+                </td>
+                <td>
+                    <input type="number" name="value" required />
+                </td>
+            </tr>
+            <tr>
+                <td><input type="submit" value="Добавить" /></td>
+            </tr>
+        </table>
+    </form>
+
+    <form action="/Index.cshtml">
+        <input type="submit" value="На главную" />
+    </form>
+</body>
+</html>

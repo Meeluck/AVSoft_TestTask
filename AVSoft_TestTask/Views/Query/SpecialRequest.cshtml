@@ -1,0 +1,37 @@
+﻿@using AVSoft_TestTask.Models
+@model List<SpecialRequestViewModel>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>SpecialRequest</title>
+</head>
+<body>
+    <h3>Спец запрос</h3>
+    <table border="1">
+        <tr>
+            <th>Key</th>
+            <th>Count</th>
+            <th>CountMoreTheOne</th>
+        </tr>
+        @foreach(SpecialRequestViewModel item in Model)
+        {
+            <tr>
+                <td>@item.Key</td>
+                <td>@item.Count</td>
+                <td>@item.CountMoreTheOne</td>
+            </tr>
+        }
+    </table>
+    @using (Html.BeginForm("GoBack", "Query",FormMethod.Post))
+    {
+        <input type="submit" value="На главную"/>
+    }
+</body>
+</html>
