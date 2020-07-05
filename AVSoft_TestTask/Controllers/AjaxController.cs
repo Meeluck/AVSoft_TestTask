@@ -23,7 +23,5 @@ namespace AVSoft_TestTask.Controllers
         {
             return dataProvider.SpecialRequest();
         }
-
-
     }
 }
