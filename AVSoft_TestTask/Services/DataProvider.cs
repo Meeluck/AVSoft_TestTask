@@ -42,27 +42,28 @@ namespace AVSoft_TestTask.Services
 		 */
 		public List<SpecialRequestViewModel> SpecialRequest()
 		{
+
 			List<SpecialRequestViewModel> _specialRequest = (from c1 in context.Counters
+															 where c1.Value > 1
 															 group c1 by c1.Key into c
 															 orderby c.Key
 															 select new SpecialRequestViewModel
 															 {
 																 Key = c.Key,
-																 Count = c.Count()
+																 CountMoreTheOne = c.Count()
 															 }).ToList();
 
-			var countMoreTheOne = (from c1 in context.Counters
-								   where c1.Value > 1
+			var count = (from c1 in context.Counters
 								   group c1 by c1.Key into c
 								   orderby c.Key
 								   select new
 								   {
 									   Key = c.Key,
-									   CountMoreTheOne = c.Count()
+									   Count = c.Count()
 								   }).ToList();
 
 			for (int i = 0; i < _specialRequest.Count; i++)
-				_specialRequest[i].CountMoreTheOne = countMoreTheOne[i].CountMoreTheOne;
+				_specialRequest[i].Count = count[i].Count;
 
 			return _specialRequest;
 		}

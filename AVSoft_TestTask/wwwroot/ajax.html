@@ -26,64 +26,9 @@
     </style>
 </head>
 <body>
+
     <h3>Ajax запрос</h3>
-    <!--<table border="1">
-        <thead>
-            <tr>
-                <th>Key</th>
-                <th>Count</th>
-                <th>CountMoreTheOne</th>
-            </tr>
-        </thead>
-        <tbody></tbody>
-    </table>-->
-
-    <!--<script>
-        async function GetData() {
-            const response = await fetch("/test/ajax", {
-                method: "GET",
-                headers: { "Accept": "application/json" }
-            });
-            if (response.ok === true) {
-                const data = await response.json();
-                let rows = document.querySelector("tbody");
-                data.forEach(d => {
-                    rows.append(row(d));
-                });
-            }
-        }
-
-        function row(d) {
-            const tr = document.createElement("tr");
-
-            const keyTd = document.createElement("td");
-            keyTd.append(d.key);
-            tr.append(keyTd);
-
-            const countTd = document.createElement("td");
-            countTd.append(d.count);
-            tr.append(countTd);
-
-            const cmtoTd = document.createElement("td");
-            cmtoTd.append(d.countMoreTheOne)
-            tr.append(cmtoTd);
-
-            return tr;
-        }
-
-        GetData();
-    </script>-->
-
-    <p>Pagination test</p>
-    <table id="table">
-        <!--<thead>
-            <tr>
-                <th>Key</th>
-                <th>Count</th>
-                <th>CountMoreTheOne</th>
-            </tr>
-        </thead>-->
-    </table>
+    <table id="table"></table>
     <ul id="pagination"></ul>
 
     <script>
