@@ -3,10 +3,31 @@
 <head>
     <meta charset="utf-8" />
     <title>Ajax</title>
+    <style>
+        #table td{
+            padding: 10px;
+            border: 1px solid black;
+        }
+        #pagination {
+	        display: flex;
+	        padding: 0;
+	        list-style-type: none;
+        }
+        #pagination li {
+	        margin-right: 5px;
+	        padding: 10px;
+	        border: 1px solid black;
+        }
+        #pagination li:hover, #pagination li.active {
+	        cursor: pointer;
+	        color: red;
+	        border: 1px solid red;
+        }
+    </style>
 </head>
 <body>
     <h3>Ajax запрос</h3>
-    <table border="1">
+    <!--<table border="1">
         <thead>
             <tr>
                 <th>Key</th>
@@ -15,8 +36,9 @@
             </tr>
         </thead>
         <tbody></tbody>
-    </table>
-    <script>
+    </table>-->
+
+    <!--<script>
         async function GetData() {
             const response = await fetch("/test/ajax", {
                 method: "GET",
@@ -50,6 +72,97 @@
         }
 
         GetData();
+    </script>-->
+
+    <p>Pagination test</p>
+    <table id="table">
+        <!--<thead>
+            <tr>
+                <th>Key</th>
+                <th>Count</th>
+                <th>CountMoreTheOne</th>
+            </tr>
+        </thead>-->
+    </table>
+    <ul id="pagination"></ul>
+
+    <script>
+        
+
+        async function GetData() {
+            const response = await fetch("/test/ajax", {
+                method: "GET",
+                headers: { "Accept": "application/json" }
+            });
+            if (response.ok === true) {
+                let data = await response.json(); 
+
+                let table = document.querySelector("#table");
+                let pagination = document.querySelector('#pagination');
+
+                let notesOnPage = 2; //кол-во строк на в таблице
+                let countOfItems = Math.ceil(data.length / notesOnPage); // кол-во страниц
+                let items = [];
+
+                //список для навигации по страницам таблицы
+                for (let i = 1; i <= countOfItems; i++) {
+                    let li = document.createElement('li')
+                    li.innerHTML = i;
+                    pagination.appendChild(li);
+                    items.push(li);
+
+                }
+
+                let active;
+
+                ShowPage(items[0]);//отображаем первую страницу
+                //отображаем остальные страницы
+                for (let item of items) {
+                    item.addEventListener('click', function () {
+                        ShowPage(this);
+                    });
+                }
+
+
+                function ShowPage(item) {
+                    if (active) {
+                        active.classList.remove('active');
+                    }
+                    active = item;
+                    item.classList.add('active');
+                    let pageNum = +item.innerHTML;
+
+                    let start = (pageNum - 1) * notesOnPage;
+                    let end = start + notesOnPage;
+
+                    let notes = data.slice(start, end);
+
+                    table.innerHTML = '';
+                    let tr = document.createElement('tr')
+                    table.appendChild(tr);
+                    CreateCell("Key", tr);
+                    CreateCell("Count", tr);
+                    CreateCell("CountrMoreTheOne", tr);
+                    for (let note of notes) {
+                        tr = document.createElement('tr');
+                        table.appendChild(tr);
+
+                        CreateCell(note.key, tr);
+                        CreateCell(note.count, tr);
+                        CreateCell(note.countMoreTheOne, tr);
+                    }
+                }
+
+                function CreateCell(text, tr) {
+                    let td = document.createElement('td');
+                    td.innerHTML = text;
+                    tr.appendChild(td);
+                }
+            }
+        }
+        GetData();
+        
+        
     </script>
 
     <form action="/Index.cshtml">
